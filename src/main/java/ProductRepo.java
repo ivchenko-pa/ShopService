@@ -12,6 +12,11 @@ public class ProductRepo {
         return allProducts.size();
     }
 
+    public int removeProduct(String id){
+        allProducts.removeIf((product) -> product.id().equals(id));
+        return allProducts.size();
+    }
+
     public Product retrieveProduct(String id){
         if (Objects.isNull(id) || id.isEmpty()) return null;
         for(Product product: allProducts){
@@ -24,10 +29,5 @@ public class ProductRepo {
 
     public Set<Product> retrieveAllProducts(){
         return allProducts;
-    }
-
-    public int removeProduct(String id){
-        allProducts.removeIf((product) -> product.id().equals(id));
-        return allProducts.size();
     }
 }
