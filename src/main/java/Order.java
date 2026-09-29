@@ -1,5 +1,5 @@
-import java.util.Map;
+import java.util.List;
 
-public record Order(String id, Map<String, Product> orderedProducts) {
+public record Order(String id, List<Product> orderedProducts) {
 
 }
