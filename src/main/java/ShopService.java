@@ -40,8 +40,10 @@ public class ShopService {
         return orderRepo.retrieveOrder(id);
     }
 
-    public void listOrders(){
-        orderRepo.retrieveAllOrders().forEach(order-> System.out.println(order));
+    public List<String> listOrders(){
+        List<String> orderIds = new ArrayList<>();
+        orderRepo.retrieveAllOrders().forEach(order-> orderIds.add(order.id()));
+        return orderIds;
     }
 
     public String getReceipt(String orderId){

@@ -48,14 +48,15 @@ public class Main {
         }while (!skipNewOrder);
 
         System.out.println("--List all orders--");
-        shop.listOrders();
+        System.out.println(shop.listOrders());
+
         System.out.println("--Show order with id Order_1--");
         System.out.println(shop.getOrder("ID_1"));
 
-        System.out.println(shop.getReceipt("ID_1"));
-        System.out.println(shop.getReceipt("ID_3"));
-        //shop.listOrders();
-
-
+        System.out.println("--Print receipts for all orders in OrderRepo--");
+        for (String orderId : shop.listOrders()){
+            System.out.println(shop.getReceipt(orderId));
+            System.out.println(("-" + Character.toString(0x2704) + "-").repeat(12));
+        }
     }
 }
