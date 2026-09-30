@@ -2,16 +2,16 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class OrderListRepoTest {
+class OrderMapRepoTest {
+
 
     @Test
     void addOrder_orderListSizeShouldBe1_whenAdded1() {
         //Given
-        OrderRepo orderRepo = new OrderListRepo();
+        OrderRepo orderRepo = new OrderMapRepo();
         Order order = new Order("1", new ArrayList<>());
         //When
         int actual = orderRepo.addOrder(order);
@@ -21,7 +21,7 @@ class OrderListRepoTest {
     @Test
     void addOrder_orderLSizeShouldBe2_whenAdded2() {
         //Given
-        OrderRepo orderRepo = new OrderListRepo();
+        OrderRepo orderRepo = new OrderMapRepo();
         Order orderA = new Order("1", new ArrayList<>());
         Order orderB = new Order("2", new ArrayList<>());
         //When
@@ -35,7 +35,7 @@ class OrderListRepoTest {
     @Test
     void addOrder_orderLSizeShouldBe1_whenAddedDuplicate() {
         //Given
-        OrderRepo orderRepo = new OrderListRepo();
+        OrderRepo orderRepo = new OrderMapRepo();
         Order orderA = new Order("1", new ArrayList<>());
         Order orderB = new Order("1", new ArrayList<>());
         //When
@@ -49,7 +49,7 @@ class OrderListRepoTest {
     @Test
     void removeOrder_listSizeShouldBe0_whenRemoved1From1() {
         //Given
-        OrderRepo orderRepo = new OrderListRepo();
+        OrderRepo orderRepo = new OrderMapRepo();
         Order order = new Order("1", new ArrayList<>());
         orderRepo.addOrder(order);
         //When
@@ -61,7 +61,7 @@ class OrderListRepoTest {
     @Test
     void removeOrder_listSizeShouldBe1_whenRemoved1From2() {
         //Given
-        OrderRepo orderRepo = new OrderListRepo();
+        OrderRepo orderRepo = new OrderMapRepo();
         Order orderA = new Order("1", new ArrayList<>());
         Order orderB = new Order("2", new ArrayList<>());
         orderRepo.addOrder(orderA);
@@ -75,7 +75,7 @@ class OrderListRepoTest {
     @Test
     void removeOrder_listSizeShouldBe1_whenRemoved1From2SecondTime() {
         //Given
-        OrderRepo orderRepo = new OrderListRepo();
+        OrderRepo orderRepo = new OrderMapRepo();
         Order orderA = new Order("1", new ArrayList<>());
         Order orderB = new Order("2", new ArrayList<>());
         orderRepo.addOrder(orderA);
@@ -90,7 +90,7 @@ class OrderListRepoTest {
     @Test
     void retrieveOrder_shouldBeMilk_whenAskedId1AndOnlyId1IsInList() {
         //Given
-        OrderRepo orderRepo = new OrderListRepo();
+        OrderRepo orderRepo = new OrderMapRepo();
         Order orderA = new Order("1", new ArrayList<>());
         orderRepo.addOrder(orderA);
         //When
@@ -102,7 +102,7 @@ class OrderListRepoTest {
     @Test
     void retrieveOrder_shouldBe1_whenAskedId1AndManyIncludingId1AreInList() {
         //Given
-        OrderRepo orderRepo = new OrderListRepo();
+        OrderRepo orderRepo = new OrderMapRepo();
         Order orderA = new Order("1", new ArrayList<>());
         Order orderB = new Order("2", new ArrayList<>());
         Order orderC = new Order("3", new ArrayList<>());
@@ -118,7 +118,7 @@ class OrderListRepoTest {
     @Test
     void retrieveOrder_shouldBeNull_whenAskedId2AndNoId2InList() {
         //Given
-        OrderRepo orderRepo = new OrderListRepo();
+        OrderRepo orderRepo = new OrderMapRepo();
         Order orderA = new Order("1", new ArrayList<>());
         Order orderC = new Order("3", new ArrayList<>());
         orderRepo.addOrder(orderA);
@@ -132,7 +132,7 @@ class OrderListRepoTest {
     @Test
     void retrieveOrder_shouldBeNull_whenAskedId2AndListIsEmpty() {
         //Given
-        OrderRepo orderRepo = new OrderListRepo();
+        OrderRepo orderRepo = new OrderMapRepo();
         //When
         Order actualOrder = orderRepo.retrieveOrder("2");
         //Then
@@ -142,7 +142,7 @@ class OrderListRepoTest {
     @Test
     void retrieveAllOrders_shouldBe1_when1inList() {
         //Given
-        OrderRepo orderRepo = new OrderListRepo();
+        OrderRepo orderRepo = new OrderMapRepo();
         Order order = new Order("1", new ArrayList<>());
         orderRepo.addOrder(order);
         //When
@@ -154,7 +154,7 @@ class OrderListRepoTest {
     @Test
     void retrieveAllOrders_shouldBe2_when2inList() {
         //Given
-        OrderRepo orderRepo = new OrderListRepo();
+        OrderRepo orderRepo = new OrderMapRepo();
         Order orderA = new Order("1", new ArrayList<>());
         Order orderB = new Order("2", new ArrayList<>());
         orderRepo.addOrder(orderA);
@@ -168,7 +168,7 @@ class OrderListRepoTest {
     @Test
     void retrieveAllOrders_shouldBe0_when0inList() {
         //Given
-        OrderRepo orderRepo = new OrderListRepo();
+        OrderRepo orderRepo = new OrderMapRepo();
         //When
         List<Order> orders = orderRepo.retrieveAllOrders();
         //Then
