@@ -50,7 +50,11 @@ public class Main {
         System.out.println("--List all orders--");
         shop.listOrders();
         System.out.println("--Show order with id Order_1--");
-        System.out.println(shop.getOrder("Order_1"));
+        System.out.println(shop.getOrder("ID_1"));
+
+        System.out.println(shop.getReceipt("ID_1"));
+        System.out.println(shop.getReceipt("ID_3"));
+        //shop.listOrders();
 
 
     }

@@ -1,6 +1,5 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.math.BigDecimal;
+import java.util.*;
 
 public class ShopService {
 
@@ -43,6 +42,48 @@ public class ShopService {
 
     public void listOrders(){
         orderRepo.retrieveAllOrders().forEach(order-> System.out.println(order));
+    }
+
+    public String getReceipt(String orderId){
+        Order order = getOrder(orderId);
+
+        Map<String, Integer> orderedProductsMap = new HashMap<>();
+
+        for(Product product : order.orderedProducts()){
+            if(orderedProductsMap.containsKey(product.id())){
+                int actualCount = orderedProductsMap.get(product.id());
+                actualCount++;
+                orderedProductsMap.put(product.id(), actualCount);
+            }else {
+                orderedProductsMap.put(product.id(), 1);
+            }
+        }
+
+        String receiptHeader = "*".repeat(35) + "\n" +
+                "*".repeat(10) + String.format("  ORDER: %-6s", orderId) + "*".repeat(10)+"\n" +
+                "*".repeat(35) + "\n";
+
+        List<BigDecimal> totalAmounts = new ArrayList<>();
+        StringBuilder receiptBody = new StringBuilder();
+        orderedProductsMap.forEach((productId, count) -> {
+            Product product = productRepo.retrieveProduct(productId);
+            receiptBody.append("*" + String.format(" %-25s %-6s", product.name(), product.price()) + "*\n") ;
+            receiptBody.append("*" + " ".repeat(27) + String.format("x%-4d ", count) + "*\n") ;
+            totalAmounts.add(new BigDecimal(product.price()).multiply(new BigDecimal(count)));
+        });
+
+        BigDecimal totalPrice = BigDecimal.valueOf(0);
+
+        for (BigDecimal amount : totalAmounts){
+            totalPrice = totalPrice.add(amount);
+        }
+
+        String receiptFooter = "*" + " ".repeat(33) + "*\n" +
+                "*" + String.format("%20s %6s EURO ", "Total price:", totalPrice) + "*\n" +
+                "*".repeat(35) + "\n" +
+                "*".repeat(35);
+
+        return receiptHeader + receiptBody + receiptFooter;
     }
 
 }
