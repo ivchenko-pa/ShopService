@@ -9,10 +9,8 @@ public class Main {
         ProductRepo productRepo = new ProductRepo();
 
         try (var in = new Scanner(new FileInputStream("src/main/resources/ean_db.csv"));) {
-            System.out.println("Available products:");
             while (in.hasNext()){
                 var rowDB = in.nextLine();
-                System.out.println(rowDB);
                 String[] rowFields = rowDB.split(",");
                 productRepo.addProduct(new Product(rowFields[0], rowFields[1], rowFields[2]));
             }
@@ -20,8 +18,8 @@ public class Main {
             System.out.println(e);
         }
 
-//        OrderRepo orderRepo = new OrderMapRepo();
-        OrderRepo orderRepo = new OrderListRepo();
+        OrderRepo orderRepo = new OrderMapRepo();
+//        OrderRepo orderRepo = new OrderListRepo();
 
         ShopService shop = new ShopService(productRepo, orderRepo);
 
@@ -36,6 +34,10 @@ public class Main {
 
             if (skipNewOrder) break;
 
+            System.out.println("Available products:");
+            for (String productEntry : shop.listProducts()) {
+                System.out.println(productEntry);
+            }
             System.out.println("Please provide product Id's you would like to order (separated by \" \")");
             String ids = scanner.nextLine();
             String id = shop.placeOrder(ids.split(" "));
@@ -47,8 +49,8 @@ public class Main {
         System.out.println("--List all orders--");
         System.out.println(shop.listOrders());
 
-        System.out.println("--Show order with id Order_1--");
-        System.out.println(shop.getOrder("ID_1"));
+        System.out.println("--Show order with id ID_2--");
+        System.out.println(shop.getOrder("ID_2"));
 
         System.out.println("--Print receipts for all orders in OrderRepo--");
         for (String orderId : shop.listOrders()){

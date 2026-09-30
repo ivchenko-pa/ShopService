@@ -46,6 +46,12 @@ public class ShopService {
         return orderIds;
     }
 
+    public List<String> listProducts(){
+        List<String> products = new ArrayList<>();
+        productRepo.retrieveAllProducts().forEach(product-> products.add(product.toString()));
+        return products;
+    }
+
     public String getReceipt(String orderId){
         Order order = getOrder(orderId);
 
