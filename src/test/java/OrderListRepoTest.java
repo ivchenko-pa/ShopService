@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -145,7 +146,7 @@ class OrderListRepoTest {
         Order order = new Order("1", new ArrayList<>());
         orderRepo.addOrder(order);
         //When
-        Set<Order> orders = orderRepo.retrieveAllOrders();
+        List<Order> orders = orderRepo.retrieveAllOrders();
         //Then
         assertEquals(1, orders.size());
     }
@@ -159,7 +160,7 @@ class OrderListRepoTest {
         orderRepo.addOrder(orderA);
         orderRepo.addOrder(orderB);
         //When
-        Set<Order> orders = orderRepo.retrieveAllOrders();
+        List<Order> orders = orderRepo.retrieveAllOrders();
         //Then
         assertEquals(2, orders.size());
     }
@@ -169,7 +170,7 @@ class OrderListRepoTest {
         //Given
         OrderListRepo orderRepo = new OrderListRepo();
         //When
-        Set<Order> orders = orderRepo.retrieveAllOrders();
+        List<Order> orders = orderRepo.retrieveAllOrders();
         //Then
         assertEquals(0, orders.size());
     }

@@ -1,14 +1,17 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 public class ShopService {
 
     private static int ordersCounter = 0;
-    ProductRepo productRepo = new ProductRepo();
-    OrderListRepo orderListRepo = new OrderListRepo();
+    ProductRepo productRepo;
+    OrderRepo orderRepo;
 
+    public ShopService(ProductRepo productRepo, OrderRepo orderRepo) {
+        this.productRepo = productRepo;
+        this.orderRepo = orderRepo;
+    }
 
     public void addProductToRepo(Product product){
         productRepo.addProduct(product);
@@ -31,16 +34,16 @@ public class ShopService {
 
         if (listOfProducts.size() > 0){
             ordersCounter++;
-            orderListRepo.addOrder(new Order("Order_" + String.valueOf(ordersCounter), listOfProducts));
+            orderRepo.addOrder(new Order("Order_" + String.valueOf(ordersCounter), listOfProducts));
         }
     }
 
     public Order getOrder(String id){
-        return orderListRepo.retrieveOrder(id);
+        return orderRepo.retrieveOrder(id);
     }
 
     public void listOrders(){
-        orderListRepo.retrieveAllOrders().forEach(order-> System.out.println(order));
+        orderRepo.retrieveAllOrders().forEach(order-> System.out.println(order));
     }
 
 }

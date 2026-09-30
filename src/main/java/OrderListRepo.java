@@ -1,8 +1,6 @@
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
-public class OrderListRepo {
+public class OrderListRepo implements OrderRepo{
     Set<Order> allOrders = new HashSet<>();
 
     public int addOrder(Order order){
@@ -25,7 +23,7 @@ public class OrderListRepo {
         return null;
     }
 
-    public Set<Order> retrieveAllOrders(){
-        return allOrders;
+    public List<Order> retrieveAllOrders(){
+        return new ArrayList<>((Collection<Order>) allOrders);
     }
 }
