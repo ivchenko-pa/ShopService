@@ -7,7 +7,7 @@ class ShopServiceTest {
     @Test
     void placeOrder_shouldBe1productInOrder_whenOrdered1() {
         //Given
-        Product product = new Product("1", "milk");
+        Product product = new Product("1", "milk", "2.23");
         ProductRepo productRepo = new ProductRepo();
         productRepo.addProduct(product);
         OrderRepo orderRepo = new OrderMapRepo();
@@ -23,8 +23,8 @@ class ShopServiceTest {
     @Test
     void placeOrder_shouldBe2productInOrder_whenOrdered2() {
         //Given
-        Product productA = new Product("1", "milk");
-        Product productB = new Product("2", "apple");
+        Product productA = new Product("1", "milk", "2.23");
+        Product productB = new Product("2", "apple", "2.23");
         ProductRepo productRepo = new ProductRepo();
         productRepo.addProduct(productA);
         productRepo.addProduct(productB);
@@ -41,7 +41,7 @@ class ShopServiceTest {
     @Test
     void placeOrder_shouldBe1productInOrder_whenOrdered1availableAnd1Unavaiable() {
         //Given
-        Product product = new Product("1", "milk");
+        Product product = new Product("1", "milk", "2.23");
         ProductRepo productRepo = new ProductRepo();
         productRepo.addProduct(product);
         OrderRepo orderRepo = new OrderMapRepo();
@@ -57,8 +57,8 @@ class ShopServiceTest {
     @Test
     void placeOrder_shouldBePlaced1Order_when2ProductsOrdered() {
         //Given
-        Product productA = new Product("1", "milk");
-        Product productB = new Product("2", "apple");
+        Product productA = new Product("1", "milk", "2.23");
+        Product productB = new Product("2", "apple", "2.23");
         ProductRepo productRepo = new ProductRepo();
         productRepo.addProduct(productA);
         productRepo.addProduct(productB);
@@ -74,7 +74,7 @@ class ShopServiceTest {
     @Test
     void placeOrder_shouldBePlaced0Orders_whenOnlyUnavailableProductOrdered() {
         //Given
-        Product product = new Product("1", "milk");
+        Product product = new Product("1", "milk", "2.23");
         ProductRepo productRepo = new ProductRepo();
         productRepo.addProduct(product);
         OrderRepo orderRepo = new OrderMapRepo();
@@ -89,7 +89,7 @@ class ShopServiceTest {
     @Test
     void placeOrder_verifyProductsInstanceInOrderEqualsOrderedOne() {
         //Given
-        Product product = new Product("1", "milk");
+        Product product = new Product("1", "milk", "2.23");
         ProductRepo productRepo = new ProductRepo();
         productRepo.addProduct(product);
         OrderRepo orderRepo = new OrderMapRepo();
@@ -105,7 +105,7 @@ class ShopServiceTest {
     @Test
     void getOrder_shouldBeCorrectOrderReturned_when1OrderInRepo() {
         //Given
-        Product product = new Product("1", "milk");
+        Product product = new Product("1", "milk", "2.23");
         ProductRepo productRepo = new ProductRepo();
         productRepo.addProduct(product);
         OrderRepo orderRepo = new OrderMapRepo();
@@ -115,15 +115,15 @@ class ShopServiceTest {
         //Then
         Order actualOrder = orderRepo.retrieveOrder(orderId);
         String actualOrderId = actualOrder.id();
-        assertEquals("Order_1", actualOrderId);
+        assertEquals("ID_1", actualOrderId);
     }
 
     @Test
     void getOrder_shouldBeCorrectOrderReturned_when3OrderInRepo() {
         //Given
-        Product productA = new Product("1", "milk");
-        Product productB = new Product("2", "apple");
-        Product productC = new Product("3", "water");
+        Product productA = new Product("1", "milk", "2.23");
+        Product productB = new Product("2", "apple", "4.55");
+        Product productC = new Product("3", "water", "62.65");
         ProductRepo productRepo = new ProductRepo();
         productRepo.addProduct(productA);
         productRepo.addProduct(productB);
@@ -137,13 +137,13 @@ class ShopServiceTest {
         Order actualOrder = orderRepo.retrieveOrder(orderIdBC);
         //Then
         String actualOrderId = actualOrder.id();
-        assertEquals("Order_2", actualOrderId);
+        assertEquals("ID_2", actualOrderId);
     }
 
     @Test
     void getOrder_shouldBeNull_whenInvalidOrderIdRequested() {
         //Given
-        Product product = new Product("1", "milk");
+        Product product = new Product("1", "milk", "2.23");
         ProductRepo productRepo = new ProductRepo();
         productRepo.addProduct(product);
         OrderRepo orderRepo = new OrderMapRepo();

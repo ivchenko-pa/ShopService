@@ -10,7 +10,7 @@ class ProductRepoTest {
     void addProduct_productListSizeShouldBe1_whenAdded1() {
         //Given
         ProductRepo productRepo = new ProductRepo();
-        Product product = new Product("1", "Milk");
+        Product product = new Product("1", "Milk", "2.3");
         //When
         int actual = productRepo.addProduct(product);
         //Then
@@ -21,8 +21,8 @@ class ProductRepoTest {
     void addProduct_productLSizeShouldBe2_whenAdded2() {
         //Given
         ProductRepo productRepo = new ProductRepo();
-        Product productA = new Product("1", "A");
-        Product productB = new Product("2", "B");
+        Product productA = new Product("1", "A", "3.14");
+        Product productB = new Product("2", "B", "54");
         //When
         productRepo.addProduct(productA);
         int actual = productRepo.addProduct(productB);
@@ -35,8 +35,8 @@ class ProductRepoTest {
     void addProduct_productLSizeShouldBe1_whenAddedDuplicate() {
         //Given
         ProductRepo productRepo = new ProductRepo();
-        Product productA = new Product("1", "A");
-        Product productB = new Product("1", "A");
+        Product productA = new Product("1", "A", "43");
+        Product productB = new Product("1", "A", "43");
         //When
         productRepo.addProduct(productA);
         int actual = productRepo.addProduct(productB);
@@ -49,7 +49,7 @@ class ProductRepoTest {
     void removeProduct_listSizeShouldBe0_whenRemoved1From1() {
         //Given
         ProductRepo productRepo = new ProductRepo();
-        Product product = new Product("1", "Milk");
+        Product product = new Product("1", "Milk", "7.50");
         productRepo.addProduct(product);
         //When
         int actual = productRepo.removeProduct(product.id());
@@ -61,8 +61,8 @@ class ProductRepoTest {
     void removeProduct_listSizeShouldBe1_whenRemoved1From2() {
         //Given
         ProductRepo productRepo = new ProductRepo();
-        Product productA = new Product("1", "A");
-        Product productB = new Product("2", "B");
+        Product productA = new Product("1", "A", "2.23");
+        Product productB = new Product("2", "B", "2.23");
         productRepo.addProduct(productA);
         productRepo.addProduct(productB);
         //When
@@ -75,8 +75,8 @@ class ProductRepoTest {
     void removeProduct_listSizeShouldBe1_whenRemoved1From2SecondTime() {
         //Given
         ProductRepo productRepo = new ProductRepo();
-        Product productA = new Product("1", "A");
-        Product productB = new Product("2", "B");
+        Product productA = new Product("1", "A", "2.23");
+        Product productB = new Product("2", "B", "2.23");
         productRepo.addProduct(productA);
         productRepo.addProduct(productB);
         //When
@@ -90,7 +90,7 @@ class ProductRepoTest {
     void retrieveProduct_shouldBeMilk_whenAskedMilkAndOnlyMilkIsInList() {
         //Given
         ProductRepo productRepo = new ProductRepo();
-        Product productA = new Product("1", "Milk");
+        Product productA = new Product("1", "Milk", "2.23");
         productRepo.addProduct(productA);
         //When
         Product actualProduct = productRepo.retrieveProduct("1");
@@ -102,9 +102,9 @@ class ProductRepoTest {
     void retrieveProduct_shouldBeMilk_whenAskedMilkAndManyIncludingMilkAreInList() {
         //Given
         ProductRepo productRepo = new ProductRepo();
-        Product productA = new Product("1", "Apple");
-        Product productB = new Product("2", "Milk");
-        Product productC = new Product("3", "Banana");
+        Product productA = new Product("1", "Apple", "2");
+        Product productB = new Product("2", "Milk", "5");
+        Product productC = new Product("3", "Banana", "2.23");
         productRepo.addProduct(productA);
         productRepo.addProduct(productB);
         productRepo.addProduct(productC);
@@ -118,8 +118,8 @@ class ProductRepoTest {
     void retrieveProduct_shouldBeNull_whenAskedMilkAndNoMilkInList() {
         //Given
         ProductRepo productRepo = new ProductRepo();
-        Product productA = new Product("1", "Apple");
-        Product productC = new Product("3", "Banana");
+        Product productA = new Product("1", "Apple", "2.23");
+        Product productC = new Product("3", "Banana", "2.23");
         productRepo.addProduct(productA);
         productRepo.addProduct(productC);
         //When
@@ -142,7 +142,7 @@ class ProductRepoTest {
     void retrieveAllProducts_shouldBe1_when1inList() {
         //Given
         ProductRepo productRepo = new ProductRepo();
-        Product product = new Product("1", "Milk");
+        Product product = new Product("1", "Milk", "2.23");
         productRepo.addProduct(product);
         //When
         Set<Product> products = productRepo.retrieveAllProducts();
@@ -154,8 +154,8 @@ class ProductRepoTest {
     void retrieveAllProducts_shouldBe2_when2inList() {
         //Given
         ProductRepo productRepo = new ProductRepo();
-        Product productA = new Product("1", "Apple");
-        Product productB = new Product("2", "Milk");
+        Product productA = new Product("1", "Apple", "2.23");
+        Product productB = new Product("2", "Milk", "2.23");
         productRepo.addProduct(productA);
         productRepo.addProduct(productB);
         //When

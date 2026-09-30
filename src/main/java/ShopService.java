@@ -30,7 +30,7 @@ public class ShopService {
 
         if (listOfProducts.size() > 0){
             ordersCounter++;
-            String orderId = "Order_" + String.valueOf(ordersCounter);
+            String orderId = "ID_" + String.valueOf(ordersCounter);
             orderRepo.addOrder(new Order(orderId, listOfProducts));
             return orderId;
         }
