@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class ShopService {
 
-    private static int ordersCounter = 0;
+    private int ordersCounter = 0;
     ProductRepo productRepo;
     OrderRepo orderRepo;
 
@@ -13,14 +13,10 @@ public class ShopService {
         this.orderRepo = orderRepo;
     }
 
-    public void addProductToRepo(Product product){
-        productRepo.addProduct(product);
-    }
-
-    public void placeOrder(String [] ids){
+    public String placeOrder(String [] ids){
         if (Objects.isNull(ids) || ids.length == 0 || ids[0].isEmpty()){
             System.out.println("Order cancelled: No id's provided to place the order");
-            return;
+            return null;
         }
         List<Product> listOfProducts = new ArrayList<>();
         for (String id : ids){
@@ -34,8 +30,11 @@ public class ShopService {
 
         if (listOfProducts.size() > 0){
             ordersCounter++;
-            orderRepo.addOrder(new Order("Order_" + String.valueOf(ordersCounter), listOfProducts));
+            String orderId = "Order_" + String.valueOf(ordersCounter);
+            orderRepo.addOrder(new Order(orderId, listOfProducts));
+            return orderId;
         }
+        return null;
     }
 
     public Order getOrder(String id){
