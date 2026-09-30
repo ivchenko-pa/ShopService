@@ -14,7 +14,7 @@ public class ShopService {
 
     public String placeOrder(String [] ids){
         if (Objects.isNull(ids) || ids.length == 0 || ids[0].isEmpty()){
-            System.out.println("Order cancelled: No id's provided to place the order");
+            System.out.println("Order cancelled: No id's provided to place in the order");
             return null;
         }
         List<Product> listOfProducts = new ArrayList<>();
