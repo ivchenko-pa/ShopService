@@ -3,86 +3,86 @@ import java.util.*;
 
 public class ShopService {
 
-    private int ordersCounter = 0;
     ProductRepo productRepo;
     OrderRepo orderRepo;
+    private int ordersCounter = 0;
 
     public ShopService(ProductRepo productRepo, OrderRepo orderRepo) {
         this.productRepo = productRepo;
         this.orderRepo = orderRepo;
     }
 
-    public String placeOrder(String [] ids){
-        if (Objects.isNull(ids) || ids.length == 0 || ids[0].isEmpty()){
+    public String placeOrder(String[] ids) {
+        if (Objects.isNull(ids) || ids.length == 0 || ids[0].isEmpty()) {
             System.out.println("Order cancelled: No product id(s) provided to place in the order");
             return null;
         }
         List<Product> listOfProducts = new ArrayList<>();
-        for (String id : ids){
+        for (String id : ids) {
             Product product = productRepo.retrieveProduct(id);
-            if(Objects.isNull(product)){
+            if (Objects.isNull(product)) {
                 System.out.printf("The product with ID: %s is out of stock.\n", id);
-            }else{
+            } else {
                 listOfProducts.add(product);
             }
         }
 
-        if (listOfProducts.size() > 0){
+        if (listOfProducts.size() > 0) {
             ordersCounter++;
-            String orderId = "ID_" + String.valueOf(ordersCounter);
+            String orderId = "ID_" + ordersCounter;
             orderRepo.addOrder(new Order(orderId, listOfProducts));
             return orderId;
         }
         return null;
     }
 
-    public Order getOrder(String id){
+    public Order getOrder(String id) {
         return orderRepo.retrieveOrder(id);
     }
 
-    public List<String> listOrders(){
+    public List<String> listOrders() {
         List<String> orderIds = new ArrayList<>();
-        orderRepo.retrieveAllOrders().forEach(order-> orderIds.add(order.id()));
+        orderRepo.retrieveAllOrders().forEach(order -> orderIds.add(order.id()));
         return orderIds;
     }
 
-    public List<String> listProducts(){
+    public List<String> listProducts() {
         List<String> products = new ArrayList<>();
-        productRepo.retrieveAllProducts().forEach(product-> products.add(product.toString()));
+        productRepo.retrieveAllProducts().forEach(product -> products.add(product.toString()));
         return products;
     }
 
-    public String getReceipt(String orderId){
+    public String getReceipt(String orderId) {
         Order order = getOrder(orderId);
 
         Map<String, Integer> orderedProductsMap = new HashMap<>();
 
-        for(Product product : order.orderedProducts()){
-            if(orderedProductsMap.containsKey(product.id())){
+        for (Product product : order.orderedProducts()) {
+            if (orderedProductsMap.containsKey(product.id())) {
                 int actualCount = orderedProductsMap.get(product.id());
                 actualCount++;
                 orderedProductsMap.put(product.id(), actualCount);
-            }else {
+            } else {
                 orderedProductsMap.put(product.id(), 1);
             }
         }
 
         String receiptHeader = "*".repeat(35) + "\n" +
-                "*".repeat(10) + String.format("  \u001B[1;31mORDER: %-6s\u001B[0m", orderId) + "*".repeat(10)+"\n" +
+                "*".repeat(10) + String.format("  \u001B[1;31mORDER: %-6s\u001B[0m", orderId) + "*".repeat(10) + "\n" +
                 "*".repeat(35) + "\n";
 
         List<BigDecimal> totalAmounts = new ArrayList<>();
         StringBuilder receiptBody = new StringBuilder();
         orderedProductsMap.forEach((productId, count) -> {
             Product product = productRepo.retrieveProduct(productId);
-            receiptBody.append("*" + String.format(" %-25s %-6s", product.name(), product.price()) + "*\n") ;
-            receiptBody.append("*" + " ".repeat(27) + String.format("x%-4d ", count) + "*\n") ;
+            receiptBody.append("*" + String.format(" %-25s %-6s", product.name(), product.price()) + "*\n");
+            receiptBody.append("*" + " ".repeat(27) + String.format("x%-4d ", count) + "*\n");
             totalAmounts.add(new BigDecimal(product.price()).multiply(new BigDecimal(count)));
         });
 
         BigDecimal totalPrice = BigDecimal.valueOf(0);
 
-        for (BigDecimal amount : totalAmounts){
+        for (BigDecimal amount : totalAmounts) {
             totalPrice = totalPrice.add(amount);
         }
 

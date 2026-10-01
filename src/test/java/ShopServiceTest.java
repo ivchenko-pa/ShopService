@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class ShopServiceTest {
 
@@ -131,7 +132,7 @@ class ShopServiceTest {
         OrderRepo orderRepo = new OrderMapRepo();
         ShopService shopService = new ShopService(productRepo, orderRepo);
         String orderIdA = shopService.placeOrder(new String[]{"1"});
-        String orderIdBC = shopService.placeOrder(new String[]{"2","3"});
+        String orderIdBC = shopService.placeOrder(new String[]{"2", "3"});
         String orderIdC = shopService.placeOrder(new String[]{"3"});
         //When
         Order actualOrder = orderRepo.retrieveOrder(orderIdBC);

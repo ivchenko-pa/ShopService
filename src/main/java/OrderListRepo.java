@@ -1,21 +1,21 @@
 import java.util.*;
 
-public class OrderListRepo implements OrderRepo{
+public class OrderListRepo implements OrderRepo {
     Set<Order> allOrders = new HashSet<>();
 
-    public int addOrder(Order order){
+    public int addOrder(Order order) {
         allOrders.add(order);
         return allOrders.size();
     }
 
-    public int removeOrder(String id){
+    public int removeOrder(String id) {
         allOrders.removeIf((order) -> order.id().equals(id));
         return allOrders.size();
     }
 
-    public Order retrieveOrder(String id){
+    public Order retrieveOrder(String id) {
         if (Objects.isNull(id) || id.isEmpty()) return null;
-        for(Order order: allOrders){
+        for (Order order : allOrders) {
             if (order.id().equals(id)) {
                 return order;
             }
@@ -23,7 +23,7 @@ public class OrderListRepo implements OrderRepo{
         return null;
     }
 
-    public List<Order> retrieveAllOrders(){
-        return new ArrayList<>((Collection<Order>) allOrders);
+    public List<Order> retrieveAllOrders() {
+        return new ArrayList<>(allOrders);
     }
 }

@@ -1,25 +1,27 @@
-import java.util.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 public class ProductRepo {
-    private Set<Product> allProducts = new HashSet<>();
+    private final Set<Product> allProducts = new HashSet<>();
 
     public Set<Product> getAllProducts() {
         return allProducts;
     }
 
-    public int addProduct(Product product){
+    public int addProduct(Product product) {
         allProducts.add(product);
         return allProducts.size();
     }
 
-    public int removeProduct(String id){
+    public int removeProduct(String id) {
         allProducts.removeIf((product) -> product.id().equals(id));
         return allProducts.size();
     }
 
-    public Product retrieveProduct(String id){
+    public Product retrieveProduct(String id) {
         if (Objects.isNull(id) || id.isEmpty()) return null;
-        for(Product product: allProducts){
+        for (Product product : allProducts) {
             if (product.id().equals(id)) {
                 return product;
             }
@@ -27,7 +29,7 @@ public class ProductRepo {
         return null;
     }
 
-    public Set<Product> retrieveAllProducts(){
+    public Set<Product> retrieveAllProducts() {
         return allProducts;
     }
 }
