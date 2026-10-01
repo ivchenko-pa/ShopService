@@ -14,7 +14,7 @@ public class ShopService {
 
     public String placeOrder(String [] ids){
         if (Objects.isNull(ids) || ids.length == 0 || ids[0].isEmpty()){
-            System.out.println("Order cancelled: No id's provided to place in the order");
+            System.out.println("Order cancelled: No product id(s) provided to place in the order");
             return null;
         }
         List<Product> listOfProducts = new ArrayList<>();
@@ -68,7 +68,7 @@ public class ShopService {
         }
 
         String receiptHeader = "*".repeat(35) + "\n" +
-                "*".repeat(10) + String.format("  ORDER: %-6s", orderId) + "*".repeat(10)+"\n" +
+                "*".repeat(10) + String.format("  \u001B[1;31mORDER: %-6s\u001B[0m", orderId) + "*".repeat(10)+"\n" +
                 "*".repeat(35) + "\n";
 
         List<BigDecimal> totalAmounts = new ArrayList<>();
@@ -87,7 +87,7 @@ public class ShopService {
         }
 
         String receiptFooter = "*" + " ".repeat(33) + "*\n" +
-                "*" + String.format("%20s %6s EURO ", "Total price:", totalPrice) + "*\n" +
+                "*" + String.format("\u001B[1;32m%20s %6s EURO \u001B[0m", "Total price:", totalPrice) + "*\n" +
                 "*".repeat(35) + "\n" +
                 "*".repeat(35);
 
