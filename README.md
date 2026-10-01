@@ -8,7 +8,7 @@
 4006381334112,Red Lentils 500g,2.39
 4006381334129,Italian Herb Mix,2.89
 ```
-## The user can provide zero or more product IDs. If no ID is provided, the order will be cancelled.
+## The user can provide one or more product IDs. If no ID is provided, the order will be cancelled.
 ```text
 Would you like to place an order? [Y/N] 
 y
