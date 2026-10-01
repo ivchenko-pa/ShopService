@@ -9,16 +9,7 @@ public class Main {
     static void main(String[] args) {
 
         ProductRepo productRepo = new ProductRepo();
-
-        try (var in = new Scanner(new FileInputStream("src/main/resources/ean_db.csv"))) {
-            while (in.hasNext()) {
-                var rowDB = in.nextLine();
-                String[] rowFields = rowDB.split(",");
-                productRepo.addProduct(new Product(rowFields[0], rowFields[1], rowFields[2]));
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println(e);
-        }
+        loadProductRepo(productRepo,"src/main/resources/ean_db.csv");
 
 //        OrderRepo orderRepo = new OrderMapRepo();
         OrderRepo orderRepo = new OrderListRepo();
@@ -86,4 +77,18 @@ public class Main {
             System.out.println(("\u001B[34m-" + Character.toString(0x2704) + "-\u001B[0m").repeat(12));
         }
     }
+
+    public static void loadProductRepo(ProductRepo productRepo, String dbSource){
+        try (var in = new Scanner(new FileInputStream(dbSource))) {
+            while (in.hasNext()) {
+                var rowDB = in.nextLine();
+                String[] rowFields = rowDB.split(",");
+                productRepo.addProduct(new Product(rowFields[0], rowFields[1], rowFields[2]));
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+        }
+    }
 }
+
+
